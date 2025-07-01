@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Project Discovery Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Custom styles for progress bar and step transitions */
+        .step-container {
+            display: none;
+        }
+        .step-container.active {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .progress-bar-fill {
+            transition: width 0.4s ease-in-out;
+        }
+        /* Custom focus styles */
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.4);
+        }
+        /* Custom radio/checkbox styles */
+        .form-radio, .form-checkbox {
+            appearance: none;
+            border-radius: 50%;
+            width: 1.25rem;
+            height: 1.25rem;
+            border: 2px solid #d1d5db;
+            transition: all 0.2s;
+            cursor: pointer;
+            position: relative;
+            top: 0.2rem;
+        }
+        .form-checkbox {
+            border-radius: 0.25rem;
+        }
+        .form-radio:checked, .form-checkbox:checked {
+            background-color: #3b82f6;
+            border-color: #3b82f6;
+        }
+        .form-radio:checked::after {
+            content: '';
+            display: block;
+            width: 0.5rem;
+            height: 0.5rem;
+            background: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        .form-checkbox:checked::after {
+            content: '\2713';
+            display: block;
+            color: white;
+            font-size: 0.8rem;
+            text-align: center;
+            line-height: 1.25rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen p-4">
+    <div class="w-full max-w-4xl mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
+        <div class="p-8">
+            <h1 class="text-3xl font-bold text-gray-800 text-center mb-2">SEO Project Discovery</h1>
+            <p class="text-center text-gray-500 mb-8">Let's get to know your project better.</p>
+
+            <!-- Progress Bar -->
+            <div class="mb-8">
+                <div class="w-full bg-gray-200 rounded-full h-2.5">
+                    <div id="progressBar" class="bg-blue-600 h-2.5 rounded-full progress-bar-fill" style="width: 20%"></div>
+                </div>
+                <div id="stepCounter" class="text-center text-sm text-gray-500 mt-2">Step 1 of 5</div>
+            </div>
+
+            <form id="seoForm">
+                <!-- Step 1: General Information -->
+                <div id="step-1" class="step-container active">
+                    <h2 class="text-2xl font-semibold text-gray-700 mb-6">1. General Information</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="businessName" class="font-medium text-gray-700 block mb-2">What is your business name?</label>
+                            <input type="text" id="businessName" name="businessName" class="w-full px-4 py-2 border border-gray-300 rounded-lg form-input" required>
+                            <p class="text-sm text-gray-500 mt-1">Helps identify your brand.</p>
+                        </div>
+                        <div>
+                            <label for="website" class="font-medium text-gray-700 block mb-2">What is your planned website?</label>
+                            <input type="text" id="website" name="website" class="w-full px-4 py-2 border border-gray-300 rounded-lg form-input" placeholder="e.g., existing or desired domain">
+                            <p class="text-sm text-gray-500 mt-1">The "home" of the SEO project.</p>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="industry" class="font-medium text-gray-700 block mb-2">What is your main industry or business field?</label>
+                            <input type="text" id="industry" name="industry" class="w-full px-4 py-2 border border-gray-300 rounded-lg form-input" required>
+                            <p class="text-sm text-gray-500 mt-1">Helps us understand your market context.</p>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="font-medium text-gray-700 block mb-2">What is the main goal for your website and SEO?</label>
+                            <div class="space-y-2">
+                                <label class="flex items-center space-x-3"><input type="checkbox" name="goals" value="Increase Sales" class="form-checkbox"><span class="text-gray-700">Increase sales</span></label>
+                                <label class="flex items-center space-x-3"><input type="checkbox" name="goals" value="Increase Traffic" class="form-checkbox"><span class="text-gray-700">Increase website traffic</span></label>
+                                <label class="flex items-center space-x-3"><input type="checkbox" name="goals" value="Build Brand" class="form-checkbox"><span class="text-gray-700">Build brand awareness</span></label>
+                                <label class="flex items-center space-x-3"><input type="checkbox" name="goals" value="Attract Leads" class="form-checkbox"><span class="text-gray-700">Attract potential customers (leads)</span></label>
+                                <label class="flex items-center space-x-3"><input type="checkbox" name="goals" value="Introduce Products" class="form-checkbox"><span class="text-gray-700">Introduce new products/services</span></label>
+                            </div>
+                            <p class="text-sm text-gray-500 mt-1">This guides the entire strategy.</p>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="audience" class="font-medium text-gray-700 block mb-2">Who is your target audience?</label>
+                            <textarea id="audience" name="audience" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg form-textarea" placeholder="e.g., Age, gender, interests, location, problems they face..."></textarea>
+                            <p class="text-sm text-gray-500 mt-1">Helps us create relevant content and user experiences.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2: Product/Service Information -->
+                <div id="step-2" class="step-container">
+                    <h2 class="text-2xl font-semibold text-gray-700 mb-6">2. Product/Service & Content</h2>
+                    <div class="space-y-6">
+                        <div>
+                            <label for="products" class="font-medium text-gray-700 block mb-2">What core products or services do you want to feature?</label>
+                            <textarea id="products" name="products" rows="5" class="w-full px-4 py-2 border border-gray-300 rounded-lg form-textarea" placeholder="Please list or describe in detail."></textarea>
+                            <p class="text-sm text-gray-500 mt-1">This is the basis for website structure and keywords.</p>
+                        </div>
+                        <div>
+                            <label for="usp" class="font-medium text-gray-700 block mb-2">What makes your product/service unique or better than competitors?</label>
+                            <textarea id="usp" name="usp" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg form-textarea" placeholder="Strengths, competitive advantages, unique selling proposition (USP)."></textarea>
+                            <p class="text-sm text-gray-500 mt-1">Helps us find highlights to convey in the content.</p>
+                        </div>
+                        <div>
+                            <label class="font-medium text-gray-700 block mb-2">Do you have existing content (text, images, videos) for the website?</label>
+                            <div class="flex space-x-6">
+                                <label class="flex items-center space-x-3"><input type="radio" name="content" value="yes" class="form-radio"><span class="text-gray-700">Yes, I have content</span></label>
+                                <label class="flex items-center space-x-3"><input type="radio" name="content" value="no" class="form-radio"><span class="text-gray-700">No, I need support with content production</span></label>
+                            </div>
+                            <p class="text-sm text-gray-500 mt-1">Determines the workload related to content creation.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 3: Competitor Analysis -->
+                <div id="step-3" class="step-container">
+                    <h2 class="text-2xl font-semibold text-gray-700 mb-6">3. Competitor Analysis</h2>
+                    <div class="space-y-6">
+                        <div>
+                            <label for="competitors" class="font-medium text-gray-700 block mb-2">Can you list 3-5 of your main competitors?</label>
+                            <textarea id="competitors" name="competitors" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg form-textarea" placeholder="List their names or websites."></textarea>
+                            <p class="text-sm text-gray-500 mt-1">Helps us analyze their strategies to find opportunities.</p>
+                        </div>
+                        <div>
+                            <label for="competitorAnalysis" class="font-medium text-gray-700 block mb-2">In your opinion, what are their strengths and weaknesses?</label>
+                            <textarea id="competitorAnalysis" name="competitorAnalysis" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg form-textarea" placeholder="This helps us find ways to differentiate your brand."></textarea>
+                            <p class="text-sm text-gray-500 mt-1">Helps find opportunities to excel in your SEO strategy.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 4: Current Status -->
+                <div id="step-4" class="step-container">
+                    <h2 class="text-2xl font-semibold text-gray-700 mb-6">4. Current Status (If you have a website)</h2>
+                    <div class="space-y-6">
+                         <div>
+                            <label class="font-medium text-gray-700 block mb-2">Is your current website having any problems?</label>
+                            <textarea id="problems" name="problems" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg form-textarea" placeholder="e.g., Slow speed, old interface, not mobile-friendly..."></textarea>
+                            <p class="text-sm text-gray-500 mt-1">Helps identify technical SEO issues to prioritize.</p>
+                        </div>
+                        <div>
+                            <label class="font-medium text-gray-700 block mb-2">Have you done SEO for your website before?</label>
+                            <div class="flex space-x-6">
+                                <label class="flex items-center space-x-3"><input type="radio" name="prevSeo" value="yes" class="form-radio"><span class="text-gray-700">Yes</span></label>
+                                <label class="flex items-center space-x-3"><input type="radio" name="prevSeo" value="no" class="form-radio"><span class="text-gray-700">No</span></label>
+                            </div>
+                            <textarea id="prevSeoDetails" name="prevSeoDetails" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-lg mt-3 form-textarea" placeholder="If yes, what were the results and who did it?"></textarea>
+                            <p class="text-sm text-gray-500 mt-1">Helps us understand your site's history.</p>
+                        </div>
+                        <div>
+                            <label class="font-medium text-gray-700 block mb-2">Do you have access to Google Analytics or Google Search Console?</label>
+                             <div class="flex space-x-6">
+                                <label class="flex items-center space-x-3"><input type="radio" name="tools" value="yes" class="form-radio"><span class="text-gray-700">Yes, I can grant access</span></label>
+                                <label class="flex items-center space-x-3"><input type="radio" name="tools" value="no" class="form-radio"><span class="text-gray-700">No / I'm not sure</span></label>
+                            </div>
+                            <p class="text-sm text-gray-500 mt-1">Data from these tools is invaluable for analysis.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 5: Budget & Timeline -->
+                <div id="step-5" class="step-container">
+                    <h2 class="text-2xl font-semibold text-gray-700 mb-6">5. Budget & Timeline</h2>
+                    <div class="space-y-6">
+                        <div>
+                            <label for="budget" class="font-medium text-gray-700 block mb-2">What is your estimated monthly budget for this project?</label>
+                            <select id="budget" name="budget" class="w-full px-4 py-2 border border-gray-300 rounded-lg form-select">
+                                <option value="">Please select a range</option>
+                                <option value="<500">&lt; $500</option>
+                                <option value="500-1000">$500 - $1,000</option>
+                                <option value="1000-2500">$1,000 - $2,500</option>
+                                <option value="2500-5000">$2,500 - $5,000</option>
+                                <option value=">5000">&gt; $5,000</option>
+                            </select>
+                            <p class="text-sm text-gray-500 mt-1">Helps us propose solutions within your financial capacity.</p>
+                        </div>
+                        <div>
+                            <label for="timeline" class="font-medium text-gray-700 block mb-2">What are your timeline expectations?</label>
+                            <textarea id="timeline" name="timeline" rows="4" class="w-full px-4 py-2 border border-gray-300 rounded-lg form-textarea" placeholder="e.g., When do you expect the website to go live? When do you hope to see results?"></textarea>
+                            <p class="text-sm text-gray-500 mt-1">Helps us set realistic expectations, as SEO takes time.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Thank you message -->
+                <div id="thank-you" class="step-container text-center py-10">
+                    <svg class="mx-auto h-16 w-16 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    <h2 class="text-3xl font-bold text-gray-800 mt-4">Thank You!</h2>
+                    <p class="text-gray-600 mt-2">Your information has been submitted successfully.</p>
+                    <p class="text-gray-600">We will review your details and get back to you shortly.</p>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div id="navigation" class="mt-8 pt-6 border-t border-gray-200 flex justify-between items-center">
+                    <button type="button" id="prevBtn" class="px-6 py-2 bg-gray-200 text-gray-700 font-semibold rounded-lg hover:bg-gray-300 transition duration-200" style="display: none;">Previous</button>
+                    <button type="button" id="nextBtn" class="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-200 ml-auto">Next</button>
+                    <button type="submit" id="submitBtn" class="px-6 py-2 bg-green-600 text-white font-semibold rounded-lg hover:bg-green-700 transition duration-200" style="display: none;">Submit Information</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- DOM Elements ---
+            const form = document.getElementById('seoForm');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const submitBtn = document.getElementById('submitBtn');
+            const navigation = document.getElementById('navigation');
+            const progressBar = document.getElementById('progressBar');
+            const stepCounter = document.getElementById('stepCounter');
+            const thankYouMessage = document.getElementById('thank-you');
+            const steps = Array.from(document.querySelectorAll('.step-container'));
+            const totalSteps = steps.length - 1; // Exclude thank you message
+            
+            let currentStep = 1;
+
+            // --- Functions ---
+            function updateDisplay() {
+                // Hide all steps
+                steps.forEach(step => step.classList.remove('active'));
+                // Show current step
+                document.getElementById(`step-${currentStep}`).classList.add('active');
+
+                // Update progress bar and counter
+                const progress = (currentStep / totalSteps) * 100;
+                progressBar.style.width = `${progress}%`;
+                stepCounter.textContent = `Step ${currentStep} of ${totalSteps}`;
+
+                // Update button visibility
+                prevBtn.style.display = currentStep > 1 ? 'inline-block' : 'none';
+                nextBtn.style.display = currentStep < totalSteps ? 'inline-block' : 'none';
+                submitBtn.style.display = currentStep === totalSteps ? 'inline-block' : 'none';
+            }
+            
+            function validateStep(stepNumber) {
+                const currentStepElement = document.getElementById(`step-${stepNumber}`);
+                const inputs = currentStepElement.querySelectorAll('input[required], select[required], textarea[required]');
+                let isValid = true;
+                
+                inputs.forEach(input => {
+                    input.classList.remove('border-red-500');
+                    if (!input.value.trim()) {
+                        isValid = false;
+                        input.classList.add('border-red-500');
+                    }
+                });
+                return isValid;
+            }
+
+            // --- Event Listeners ---
+            nextBtn.addEventListener('click', () => {
+                if (validateStep(currentStep) && currentStep < totalSteps) {
+                    currentStep++;
+                    updateDisplay();
+                }
+            });
+
+            prevBtn.addEventListener('click', () => {
+                if (currentStep > 1) {
+                    currentStep--;
+                    updateDisplay();
+                }
+            });
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (!validateStep(currentStep)) {
+                    return;
+                }
+                
+                // Hide form elements and show thank you message
+                steps.forEach(step => step.classList.remove('active'));
+                navigation.style.display = 'none';
+                progressBar.parentElement.style.display = 'none';
+                stepCounter.style.display = 'none';
+                thankYouMessage.classList.add('active');
+
+                // Log form data to console (replace with actual submission logic)
+                const formData = new FormData(form);
+                const data = {};
+                // Handle checkboxes
+                data.goals = [];
+                formData.forEach((value, key) => {
+                    if (key === 'goals') {
+                        data.goals.push(value);
+                    } else {
+                        data[key] = value;
+                    }
+                });
+
+                console.log("--- Form Submitted ---");
+                console.log(data);
+                // Here you would typically send the 'data' object to your server
+                // e.g., using fetch()
+            });
+
+            // Initial setup
+            updateDisplay();
+        });
+    </script>
+</body>
+</html>
