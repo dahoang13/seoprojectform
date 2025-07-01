@@ -330,10 +330,16 @@
                     }
                 });
 
-                console.log("--- Form Submitted ---");
-                console.log(data);
-                // Here you would typically send the 'data' object to your server
-                // e.g., using fetch()
+                // Gửi dữ liệu lên Google Sheets qua Apps Script Web App
+                fetch('https://script.google.com/macros/s/AKfycbzCd2GW3oMTOkvP-qND9SftDtbteCXSYZeTlhzeJXj1jjefD0pgGpX9ePuNWWyF4eg6/exec', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+                })
+                .then(r => r.text())
+                .then(txt => console.log('Đã gửi lên Google Sheets:', txt))
+                .catch(err => alert('Gửi thất bại!'));
+
             });
 
             // Initial setup
